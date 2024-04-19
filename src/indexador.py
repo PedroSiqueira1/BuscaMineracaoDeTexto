@@ -76,3 +76,8 @@ def indexador():
     except Exception as e:
         logging.error("An error occurred while generating index: %s", str(e))
         raise
+
+try:
+    indexador()
+except Exception as e:
+    logging.error("An error occurred: %s", str(e))
