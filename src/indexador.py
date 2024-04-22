@@ -5,22 +5,29 @@ import re
 from utils import read_config
 import logging
 
-# Configurando o logging
-logging.basicConfig(filename='generate_inverted_list.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+logger = logging.getLogger(__name__)
 
 def indexador():
+
 
     try:
         # Regex to transform base, only pick words with 2 or more letters, and only words made by letters
         regex = r'^[a-zA-Z]{2,}$'
+
+        logger.info("Reading the configuration file")
 
         config = read_config('./config/INDEX.CFG')
 
         read_files = config['LEIA']
         write_files = config['ESCREVA']
 
+        logger.info("Reading inverted list")
         list_of_words = pd.read_csv('./results/' + read_files[0], sep=';')
+
+        logger.info(f"Total of words read: {list_of_words.shape[0]}")
+
+        logger.info("Creating vector model.")
 
         max_freq_term = {}
         nis = {}
@@ -72,12 +79,10 @@ def indexador():
 
         # Save as csv
         weights_df.to_csv('./results/' + write_files[0], sep=';')
+
+        logger.info("Generated vector model.")
+
     
     except Exception as e:
-        logging.error("An error occurred while generating index: %s", str(e))
+        logger.error("An error occurred while generating index: %s", str(e))
         raise
-
-try:
-    indexador()
-except Exception as e:
-    logging.error("An error occurred: %s", str(e))

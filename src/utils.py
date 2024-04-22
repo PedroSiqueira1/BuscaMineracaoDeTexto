@@ -1,5 +1,7 @@
-import configparser
 from unidecode import unidecode
+import numpy as np
+from numpy.linalg import norm
+
 
 
 def read_config(file:str) -> dict:
@@ -34,3 +36,10 @@ def coalesce(*args):
         if arg is not None:
             return unidecode(arg.text).upper()
     return '' 
+
+def similarity(matrix_A, vector_B):
+    
+    dot_product = matrix_A@vector_B
+    norm_multiplication = norm(matrix_A) * norm(vector_B)
+    return np.divide(dot_product, norm_multiplication)
+    
