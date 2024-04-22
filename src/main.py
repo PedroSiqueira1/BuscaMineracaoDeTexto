@@ -1,3 +1,16 @@
+import subprocess
+
+# Define the command
+command = ["pip", "install", "-r", "./requirements.txt"]
+
+# Run the command
+try:
+    subprocess.check_call(command)
+    print("Dependencies installed successfully!")
+except subprocess.CalledProcessError as e:
+    print("Error: Failed to install dependencies:", e)
+
+
 import processador 
 import gerador_de_lista_invertida
 import indexador
