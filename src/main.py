@@ -1,5 +1,7 @@
 import subprocess
 
+print("Installing dependencies")
+
 # Define the command
 command = ["pip", "install", "-r", "./requirements.txt"]
 
