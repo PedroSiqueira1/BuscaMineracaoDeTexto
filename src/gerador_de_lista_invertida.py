@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 import xml.etree.ElementTree as ET
 from utils import read_config, coalesce
+from nltk.stem.porter import PorterStemmer
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,11 @@ def generate_inverted_list():
 
         cfg = read_config('./config/GLI.CFG')
         read_files = cfg['LEIA']
+        use_stemmer = cfg['STEMMER'][0]
 
+        if use_stemmer == "STEMMER":
+            stemmer = PorterStemmer()
+            logger.info("Using stemmer to generate inverted list")
         generator_list = {}
         
         
@@ -28,16 +33,28 @@ def generate_inverted_list():
             root = tree.getroot()
 
             papers_read = 0
-            for record in root:
-                papers_read+=1
-                record_num = record.find('RECORDNUM').text
-                record_text = coalesce(record.find('ABSTRACT'), record.find('EXTRACT'))
 
-                for word in record_text.split():
-                    if word in generator_list:
-                        generator_list[word].append(record_num)
-                    else:
-                        generator_list[word] = [record_num]
+            if use_stemmer == "STEMMER":
+                for record in root:
+                    papers_read+=1
+                    record_num = record.find('RECORDNUM').text
+                    record_text = coalesce(record.find('ABSTRACT'), record.find('EXTRACT'))
+                    for word in record_text.split():
+                        word = stemmer.stem(word).upper()
+                        if word in generator_list:
+                            generator_list[word].append(record_num)
+                        else:
+                            generator_list[word] = [record_num]
+            else:
+                for record in root:
+                    papers_read+=1
+                    record_num = record.find('RECORDNUM').text
+                    record_text = coalesce(record.find('ABSTRACT'), record.find('EXTRACT'))
+                    for word in record_text.split():
+                        if word in generator_list:
+                            generator_list[word].append(record_num)
+                        else:
+                            generator_list[word] = [record_num]
             logger.info(f"Total of papers read: {papers_read}")
 
 
