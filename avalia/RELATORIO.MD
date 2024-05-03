@@ -3,10 +3,10 @@
 ## Gráfico de 11 pontos de precisão e recall
 
 #### No Stemmer
-![No Stemmer Chart](../avalia/img/precision_recall.png "No Stemmer Chart")
+![No Stemmer Chart](../avalia/img/11pontos-nostemmer.png "No Stemmer Chart")
 
 #### Stemmer
-![No Stemmer Chart](../avalia/img/precision_recall.png "No Stemmer Chart")
+![No Stemmer Chart](../avalia/img/11pontos-stemmer.png "No Stemmer Chart")
 
 
 ## F1
@@ -32,7 +32,7 @@
 
 ## Histograma de R-Precision (comparativo)
 
-![Histograma](../avalia/img/r_precision_histogram.png "Histograma")
+![Histograma](../avalia/img/r-precision-comparative.png "Histograma")
 
 
 ## MAP
