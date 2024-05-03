@@ -1,4 +1,4 @@
-# Resultados
+# Resultados - No Stemmer X Stemmer
 
 ## Gráfico de 11 pontos de precisão e recall
 
@@ -11,7 +11,7 @@
 
 ## F1
 
-#### No Stemmer - 14.6%
+#### <h4>No Stemmer - 14.6%
 
 #### Stemmer - 16.1%
 
